@@ -5,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as ec #beklenen koşu
 from selenium.webdriver.common.action_chains import ActionChains
 import pytest
 
+
+
 class Test_Demo:
     def deneme():
         print("deneme")
