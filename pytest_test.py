@@ -8,7 +8,9 @@ import pytest
 class Test_Demo:
     def deneme():
         print("deneme")
+    
     #passed
+    @pytest.mark.skip #tüm testler koşulurken "skip" şeklinde işaretlenen testlerimi atla
     def test_demo(self):
         print("x")
         text="Hello"
@@ -25,11 +27,15 @@ class Test_Demo:
     def teardown_method(self):
         self.driver.quit()
     
-    def test_invalid_login(self):
-        userName=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.ID,"user-name")))
-        password=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.ID,"password"))) 
-        userName.send_keys("1")
-        password.send_keys("1")
+    def getData():
+        return [("1","1"),("abc","123"),("deneme","secret_sauce")]
+
+    @pytest.mark.parametrize("username, password", getData())
+    def test_invalid_login(self, username, password):
+        userNameInput=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.ID,"user-name")))
+        passwordInput=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.ID,"password"))) 
+        userNameInput.send_keys(username)
+        passwordInput.send_keys(password)
         loginButton=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.ID,"login-button")))  
         loginButton.click()
         errorMessage=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.XPATH,"//*[@id='login_button_container']/div/form/div[3]/h3")))  
@@ -39,10 +45,10 @@ class Test_Demo:
 
     def test_valid_login(self):
         self.driver.get("https://www.saucedemo.com/")
-        userName=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.ID,"user-name")))       
-        password=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.ID,"password")))     
-        userName.send_keys("standard_user")
-        password.send_keys("secret_sauce")
+        userNameInput=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.ID,"user-name")))       
+        passwordInput=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.ID,"password")))     
+        userNameInput.send_keys("standard_user")
+        passwordInput.send_keys("secret_sauce")
         loginButton=WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.ID,"login-button")))      
         loginButton.click()
 
