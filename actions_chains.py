@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait #işgili driver'ı bekleten yapı
 from selenium.webdriver.support import expected_conditions as ec #beklenen koşullar
 from selenium.webdriver.common.action_chains import ActionChains
-
+from time import sleep
 class Test_Sauce:
     def __init__(self):
         self.driver =webdriver.Chrome()
@@ -56,11 +56,20 @@ class Test_Sauce:
         actions.perform()
         loginButton=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID, "login-button")))
         loginButton.click()
-        self.driver.get("https://www.saucedemo.com/inventory.html")
+        #self.driver.get("https://www.saucedemo.com/inventory.html")
         proList=WebDriverWait(self.driver,5).until(ec.visibility_of_all_elements_located((By.CLASS_NAME,"inventory_item")))
         print(f"Bu sitede {len(proList)} adet ürün var.")
-
-    
+        addToCart=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='add-to-cart-test.allthethings()-t-shirt-(red)']")))
+        # actions2=ActionChains(self.driver)
+        # actions2.move_to_element(addToCart) #butonun olduğu yere sayfayı taşı, böylelikle scroll oraya iner
+        # actions2.click()
+        # actions2.perform()
+        self.driver.execute_script("window.scrollTo(0,500)")
+        addToCart.click()
+        removeButton=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='remove-test.allthethings()-t-shirt-(red)']")))
+        testResult4=removeButton.text== "Remove"
+        sleep(3)
+        print(f"4.Test Sonucu: {testResult4}")
 
 testClass=Test_Sauce()
 testClass.test_null_value()
