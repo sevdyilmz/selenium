@@ -1,5 +1,3 @@
-
-#action neden kullanılır? -bir element üzerinde çokça işlem yapmamız gerekirse ya da aynı işlemleri birden çok kez yapmamaız gereken yer varsa o zaman kullanılır.
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait #işgili driver'ı bekleten yapı
@@ -8,7 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 import pytest
 
-class Test_:
+class Test_Pytest:
     def setup_method(self):
         self.driver =webdriver.Chrome()
         self.driver.maximize_window()
