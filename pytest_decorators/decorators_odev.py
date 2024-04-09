@@ -56,7 +56,7 @@ class Test_Odev:
         passwordInput=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"password")))
         loginButton=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"login-button")))
         actions=ActionChains(self.driver)
-        actions.send_keys_to_element(userNameInput,"Ahmet Suat Tanis")
+        actions.send_keys_to_element(userNameInput,"Ebrar Nur")
         actions.send_keys_to_element(passwordInput,"")
         actions.click(loginButton)
         actions.perform() 
